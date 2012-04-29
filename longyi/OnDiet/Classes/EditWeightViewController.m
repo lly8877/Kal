@@ -23,6 +23,11 @@
 @synthesize weightPickerView = m_weightPickerView;
 @synthesize delegate = m_delegate;
 
+@synthesize leftBackground = m_leftBackground;
+@synthesize rightBackground = m_rightBackground;
+@synthesize topBackground = m_topBackground;
+@synthesize bottomBackground = m_bottomBackground;
+
 #pragma mark view life cycle
 #pragma mark -
 
@@ -54,30 +59,91 @@
     }
     self.toolbar.items = l_toolbarItems;
     
+    // four view to cover the picker
+    self.topBackground = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.bottomBackground = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.leftBackground = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    self.rightBackground = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    
     self.weightNotesTextView = [[[UITextView alloc] initWithFrame:CGRectZero] autorelease];
     self.weightPickerView = [[[UIPickerView alloc] initWithFrame:CGRectZero] autorelease];
     self.weightPickerView.delegate = self;
     self.weightPickerView.dataSource = self;
+    
+    
+    
     [self.view addSubview:self.toolbar];
-    //[self.view addSubview:self.weightTodayLabel];
     [self.view addSubview:self.weightPickerView];
+    [self.view addSubview:self.weightNotesTextView];
+    [self.weightPickerView addSubview:self.leftBackground];
+    [self.weightPickerView addSubview:self.rightBackground];
+    [self.weightPickerView addSubview:self.topBackground];
+    [self.weightPickerView addSubview:self.bottomBackground];
+    
     
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    CGRect l_bounds = [[UIScreen mainScreen] applicationFrame];
-    self.toolbar.frame = CGRectMake(0, 0, l_bounds.size.width, 45);
+    // constants
     int l_pickerViewHeight = 162;
-    self.weightPickerView.frame = CGRectMake(0, 45, l_bounds.size.width, l_pickerViewHeight);
+    int l_pickerViewWidth = 200;
     int l_margin = 10;
+    int l_toolbarHeight = 45;
+    int leftRightMargin = 17;
+    int topbottomMargin = 14;
+    
+    CGRect l_bounds = [[UIScreen mainScreen] applicationFrame];
+    
+    // toolbar
+    self.toolbar.frame = CGRectMake(0, 0, l_bounds.size.width, l_toolbarHeight);
+    self.toolbar.tintColor = COLOR_RED;
+    
+    // picker
+    self.weightPickerView.frame = CGRectMake(0, l_toolbarHeight, l_pickerViewWidth, l_pickerViewHeight);
+    self.weightPickerView.backgroundColor = COLOR_LIGHT_BLUE;
+    self.weightPickerView.showsSelectionIndicator = NO;
+    self.weightPickerView.clipsToBounds = YES;
+    self.leftBackground.frame = CGRectMake(
+                                           0, 
+                                           0, 
+                                           leftRightMargin,
+                                           l_pickerViewHeight
+                                           );
+    self.rightBackground.frame = CGRectMake(
+                                            l_pickerViewWidth - leftRightMargin, 
+                                            0, 
+                                            leftRightMargin,
+                                            l_pickerViewHeight
+                                            );
+    self.topBackground.frame = CGRectMake(
+                                          0, 
+                                          0, 
+                                          l_pickerViewWidth,
+                                          topbottomMargin
+                                          );
+    self.bottomBackground.frame = CGRectMake(
+                                             0, 
+                                             l_pickerViewHeight - topbottomMargin, 
+                                             l_pickerViewWidth,
+                                             topbottomMargin
+                                             );
+    self.leftBackground.backgroundColor = COLOR_DARK_BLUE;
+    self.rightBackground.backgroundColor = COLOR_DARK_BLUE;
+    self.topBackground.backgroundColor = COLOR_DARK_BLUE;
+    self.bottomBackground.backgroundColor = COLOR_DARK_BLUE;
+    
+    // textview
     self.weightNotesTextView.frame = CGRectMake(
                                                 l_margin, 
-                                                l_pickerViewHeight+l_margin, 
-                                                l_bounds.size.width, 
-                                                l_bounds.size.height - l_pickerViewHeight - l_margin * 2
+                                                l_pickerViewHeight+ l_margin + l_toolbarHeight, 
+                                                l_bounds.size.width - l_margin*2, 
+                                                l_bounds.size.height - l_pickerViewHeight - l_toolbarHeight - l_margin * 2
                                                 );
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.weightNotesTextView.font = [UIFont systemFontOfSize:20];
+    
+    // background view
+    self.view.backgroundColor = COLOR_DARK_BLUE;
 }
 
 - (void)viewDidAppear:(BOOL)animated
