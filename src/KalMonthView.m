@@ -111,7 +111,7 @@ extern const CGSize kTileSize;
         }
         else 
         {
-            tile.backgroundColor = COLOR_YELLOW;
+            tile.backgroundColor = [UIColor whiteColor];
         }
     }
 }

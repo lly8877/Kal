@@ -11,10 +11,12 @@
 {
     NSDate* m_date;
     CGFloat m_weightInKg;
+    NSString* m_noteString;
 }
 
 @property (nonatomic, retain) NSDate* date;
 @property (nonatomic, assign) CGFloat weightInKg;
+@property (nonatomic, retain) NSString* noteString;
 
-+ (WeightRecord*)weightRecordWithDate:(NSDate*)in_date andWeightInKg:(CGFloat)in_weightInKg;
++ (WeightRecord*)weightRecordWithDate:(NSDate*)in_date noteString:(NSString*)in_note andWeightInKg:(CGFloat)in_weightInKg;
 @end

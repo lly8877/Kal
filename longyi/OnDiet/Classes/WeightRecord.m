@@ -10,17 +10,19 @@
 @implementation WeightRecord
 @synthesize date = m_date;
 @synthesize weightInKg = m_weightInKg;
+@synthesize noteString = m_noteString;
 
-+ (WeightRecord*)weightRecordWithDate:(NSDate*)in_date andWeightInKg:(CGFloat)in_weightInKg
++ (WeightRecord*)weightRecordWithDate:(NSDate*)in_date noteString:(NSString*)in_note andWeightInKg:(CGFloat)in_weightInKg
 {
-    return [[[WeightRecord alloc] initWithDate:in_date andWeightInKg:in_weightInKg] autorelease];
+    return [[[WeightRecord alloc] initWithDate:in_date noteString:(NSString*)in_note andWeightInKg:in_weightInKg] autorelease];
 }
 
-- (id)initWithDate:(NSDate*)in_date andWeightInKg:(CGFloat)in_weightInKg
+- (id)initWithDate:(NSDate*)in_date noteString:(NSString*)in_note andWeightInKg:(CGFloat)in_weightInKg
 {
     if ((self = [super init])) {
         self.date = in_date;
         self.weightInKg = in_weightInKg;
+        self.noteString = in_note;
     }
     return self;
 }

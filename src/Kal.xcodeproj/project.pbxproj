@@ -31,7 +31,7 @@
 		533B288B11E2D46E00B3CC07 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 533B287511E2D46E00B3CC07 /* UIViewAdditions.m */; };
 		AA747D9F0F9514B9006C5449 /* Kal_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* Kal_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
-		EEF404B1154552520025E424 /* constant.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF404B0154552520025E424 /* constant.h */; };
+		EE962A27154CDB2D00BDF907 /* EditWeightViewControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = EE962A25154CDB2D00BDF907 /* EditWeightViewControllerDelegate.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,7 +61,7 @@
 		AA747D9E0F9514B9006C5449 /* Kal_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kal_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libKal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKal.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		EEF404B0154552520025E424 /* constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
+		EE962A25154CDB2D00BDF907 /* EditWeightViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditWeightViewControllerDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +108,6 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				EEF404B0154552520025E424 /* constant.h */,
 				533B286011E2D46E00B3CC07 /* Kal.h */,
 				533B286111E2D46E00B3CC07 /* KalDataSource.h */,
 				533B286211E2D46E00B3CC07 /* KalDataSource.m */,
@@ -127,6 +126,7 @@
 				533B286F11E2D46E00B3CC07 /* KalView.m */,
 				533B287011E2D46E00B3CC07 /* KalViewController.h */,
 				533B287111E2D46E00B3CC07 /* KalViewController.m */,
+				EE962A25154CDB2D00BDF907 /* EditWeightViewControllerDelegate.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -170,7 +170,7 @@
 				533B288611E2D46E00B3CC07 /* KalViewController.h in Headers */,
 				533B288811E2D46E00B3CC07 /* NSDateAdditions.h in Headers */,
 				533B288A11E2D46E00B3CC07 /* UIViewAdditions.h in Headers */,
-				EEF404B1154552520025E424 /* constant.h in Headers */,
+				EE962A27154CDB2D00BDF907 /* EditWeightViewControllerDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

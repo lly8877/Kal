@@ -6,22 +6,22 @@
 //
 
 #import <UIKit/UIKit.h>
-@class KalViewController;
-@protocol EditWeightViewControllerDelegate <NSObject>
-
-- (void) dataSaved;
-
-@end
+#import "EditWeightViewControllerDelegate.h"
+#import "WeightRecord.h"
 
 @interface EditWeightViewController : UIViewController
-<UIPickerViewDelegate,UIPickerViewDataSource>
+<
+UIPickerViewDelegate,
+UIPickerViewDataSource,
+UITextViewDelegate
+>
 {
 
 @private
     UIToolbar* m_toolbar;
     UITextView* m_weightNotesTextView;
     UIPickerView* m_weightPickerView;
-    CGFloat initWeight;
+    WeightRecord* m_initRecord;
     NSDate* m_initDate;
     
     UIView* m_leftBackground;
@@ -33,7 +33,7 @@
     id<EditWeightViewControllerDelegate> m_delegate;
 }
 
-@property (nonatomic, retain) NSDate* initDate;
+@property (nonatomic, retain) WeightRecord* initRecord;
 @property (nonatomic, retain) UIToolbar* toolbar;
 @property (nonatomic, retain) UITextView* weightNotesTextView;
 @property (nonatomic, retain) UIPickerView* weightPickerView;

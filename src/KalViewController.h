@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 #import "KalView.h"       // for the KalViewDelegate protocol
 #import "KalDataSource.h" // for the KalDataSourceCallbacks protocol
-#import "EditWeightViewController.h"
+#import "EditWeightViewControllerDelegate.h"
 
 @class KalLogic, KalDate;
 

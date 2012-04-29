@@ -17,7 +17,7 @@
 
 @implementation EditWeightViewController
 
-@synthesize initDate = m_initDate;
+@synthesize initRecord = m_initRecord;
 @synthesize toolbar = m_toolbar;
 @synthesize weightNotesTextView = m_weightNotesTextView;
 @synthesize weightPickerView = m_weightPickerView;
@@ -75,10 +75,12 @@
     [self.view addSubview:self.toolbar];
     [self.view addSubview:self.weightPickerView];
     [self.view addSubview:self.weightNotesTextView];
-    [self.weightPickerView addSubview:self.leftBackground];
-    [self.weightPickerView addSubview:self.rightBackground];
-    [self.weightPickerView addSubview:self.topBackground];
-    [self.weightPickerView addSubview:self.bottomBackground];
+#if 0
+    [self.view addSubview:self.leftBackground];
+    [self.view addSubview:self.rightBackground];
+    [self.view addSubview:self.topBackground];
+    [self.view addSubview:self.bottomBackground];
+#endif
     
     
 }
@@ -88,72 +90,87 @@
     // constants
     int l_pickerViewHeight = 162;
     int l_pickerViewWidth = 200;
-    int l_margin = 10;
+    int l_margin = 0;
     int l_toolbarHeight = 45;
     int leftRightMargin = 17;
-    int topbottomMargin = 14;
+    int topbottomMargin = 11;
+    int textViewHeight = 160;
     
     CGRect l_bounds = [[UIScreen mainScreen] applicationFrame];
     
     // toolbar
     self.toolbar.frame = CGRectMake(0, 0, l_bounds.size.width, l_toolbarHeight);
-    self.toolbar.tintColor = COLOR_RED;
     
     // picker
-    self.weightPickerView.frame = CGRectMake(0, l_toolbarHeight, l_pickerViewWidth, l_pickerViewHeight);
+    self.weightPickerView.frame = CGRectMake(
+                                             0,
+                                             l_toolbarHeight + textViewHeight,
+                                             l_pickerViewWidth,
+                                             l_pickerViewHeight
+                                             );
     self.weightPickerView.backgroundColor = COLOR_LIGHT_BLUE;
     self.weightPickerView.showsSelectionIndicator = NO;
     self.weightPickerView.clipsToBounds = YES;
+    
+#if 0
     self.leftBackground.frame = CGRectMake(
-                                           0, 
-                                           0, 
+                                           self.weightPickerView.frame.origin.x, 
+                                           self.weightPickerView.frame.origin.y, 
                                            leftRightMargin,
                                            l_pickerViewHeight
                                            );
     self.rightBackground.frame = CGRectMake(
-                                            l_pickerViewWidth - leftRightMargin, 
-                                            0, 
+                                            self.weightPickerView.frame.origin.x + l_pickerViewWidth - leftRightMargin, 
+                                            self.weightPickerView.frame.origin.y, 
                                             leftRightMargin,
                                             l_pickerViewHeight
                                             );
     self.topBackground.frame = CGRectMake(
-                                          0, 
-                                          0, 
+                                          self.weightPickerView.frame.origin.x, 
+                                          self.weightPickerView.frame.origin.y, 
                                           l_pickerViewWidth,
                                           topbottomMargin
                                           );
     self.bottomBackground.frame = CGRectMake(
-                                             0, 
-                                             l_pickerViewHeight - topbottomMargin, 
+                                             self.weightPickerView.frame.origin.x,
+                                             self.weightPickerView.frame.origin.y + l_pickerViewHeight - topbottomMargin, 
                                              l_pickerViewWidth,
                                              topbottomMargin
                                              );
-    self.leftBackground.backgroundColor = COLOR_DARK_BLUE;
-    self.rightBackground.backgroundColor = COLOR_DARK_BLUE;
-    self.topBackground.backgroundColor = COLOR_DARK_BLUE;
-    self.bottomBackground.backgroundColor = COLOR_DARK_BLUE;
+    self.weightPickerView.backgroundColor = COLOR_LIGHT_BLUE;
+    self.leftBackground.backgroundColor = COLOR_LIGHT_BLUE;
+    self.rightBackground.backgroundColor = COLOR_LIGHT_BLUE;
+    self.topBackground.backgroundColor = COLOR_LIGHT_BLUE;
+    self.bottomBackground.backgroundColor = COLOR_LIGHT_BLUE;
+#endif
     
     // textview
     self.weightNotesTextView.frame = CGRectMake(
                                                 l_margin, 
-                                                l_pickerViewHeight+ l_margin + l_toolbarHeight, 
+                                                l_margin + l_toolbarHeight, 
                                                 l_bounds.size.width - l_margin*2, 
-                                                l_bounds.size.height - l_pickerViewHeight - l_toolbarHeight - l_margin * 2
+                                                textViewHeight - l_margin * 2
                                                 );
     self.weightNotesTextView.font = [UIFont systemFontOfSize:20];
-    
+    self.weightNotesTextView.delegate = self;
+    self.weightNotesTextView.returnKeyType = UIReturnKeyDone;
+    self.weightNotesTextView.autocorrectionType = UITextAutocorrectionTypeNo;
+    if (self.initRecord.noteString)
+    {
+        self.weightNotesTextView.text = self.initRecord.noteString;
+    }
     // background view
-    self.view.backgroundColor = COLOR_DARK_BLUE;
+    self.view.backgroundColor = COLOR_LIGHT_BLUE;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if (initWeight > MAXWEIGHTINT || initWeight < 0)
+    if (self.initRecord.weightInKg > MAXWEIGHTINT || self.initRecord.weightInKg < 0)
     {
         return;
     }
-    int intPart = (int)initWeight;
-    int floatPart = (int)((initWeight*10 - intPart*10));
+    int intPart = (int)self.initRecord.weightInKg;
+    int floatPart = (int)((self.initRecord.weightInKg*10 - intPart*10));
     [self.weightPickerView selectRow:intPart inComponent:0 animated:YES];
     [self.weightPickerView selectRow:floatPart inComponent:1 animated:YES];
 }
@@ -161,18 +178,14 @@
 #pragma mark init and dealloc
 #pragma mark -
 
-- (id)initWithWeight:(CGFloat)weight
-{
-    [super init];
-    initWeight = weight;
-    return self;
-}
-
 - (id)initWithDate:(NSDate*)in_Date
 {
     [super init];
-    self.initDate = in_Date;
-    initWeight = [WeightRecords weightRecordForDate:in_Date];
+    self.initRecord = [WeightRecords weightRecordForDate:in_Date];
+    if (!self.initRecord)
+    {
+        self.initRecord = [WeightRecord weightRecordWithDate:in_Date noteString:nil andWeightInKg:0];
+    }
     return self;
 }
 
@@ -184,6 +197,29 @@
     [m_weightPickerView release];
     [m_initDate release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark UITextViewDelegate
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)in_range replacementText:(NSString *)in_text
+{
+    if (in_text.length > 1)
+    {
+        // reach here because it should be a "paste" change here.
+        // we replace all '\n' to ' ' and lets change the text ourself.
+        NSString* l_stringToReplace = [in_text stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+        self.weightNotesTextView.text = [self.weightNotesTextView.text stringByReplacingCharactersInRange:in_range withString:l_stringToReplace];
+        // already replaced the string, return NO.
+        return NO;
+    }
+    else if([@"\n" isEqual:in_text]) 
+    {
+        [self.weightNotesTextView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark UIPickerViewDataSource
@@ -253,7 +289,7 @@
 {
     int intPart = [self.weightPickerView selectedRowInComponent:0];
     int floatPart = [self.weightPickerView selectedRowInComponent:1];
-    [WeightRecords saveWeight:intPart+floatPart*0.1 ForDate:self.initDate];
+    [WeightRecords saveWeight:intPart+floatPart*0.1 noteString:self.weightNotesTextView.text ForDate:self.initRecord.date];
     [self.delegate dataSaved];
     [self dismissModalViewControllerAnimated:YES];
 }
