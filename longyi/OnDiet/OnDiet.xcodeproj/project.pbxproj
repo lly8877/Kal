@@ -30,6 +30,7 @@
 		EE760AEF1544FA1C00894ACA /* WeightRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE760AEE1544FA1C00894ACA /* WeightRecord.m */; };
 		EE760B091545032B00894ACA /* WeightRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = EE760B081545032B00894ACA /* WeightRecords.m */; };
 		EE760B0B15450C4B00894ACA /* weightRecords.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = EE760B0A15450C4B00894ACA /* weightRecords.sqlite */; };
+		EE9629F7154CCD2800BDF907 /* EditWeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9629F5154CCD2800BDF907 /* EditWeightViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		EE760B071545032B00894ACA /* WeightRecords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeightRecords.h; sourceTree = "<group>"; };
 		EE760B081545032B00894ACA /* WeightRecords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeightRecords.m; sourceTree = "<group>"; };
 		EE760B0A15450C4B00894ACA /* weightRecords.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = weightRecords.sqlite; sourceTree = "<group>"; };
+		EE9629F5154CCD2800BDF907 /* EditWeightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditWeightViewController.m; sourceTree = "<group>"; };
+		EE9629F6154CCD2800BDF907 /* EditWeightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditWeightViewController.h; sourceTree = "<group>"; };
 		EEF404AF154551770025E424 /* constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constant.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,13 +114,15 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EEF404AF154551770025E424 /* constant.h */,
+				EE9629F6154CCD2800BDF907 /* EditWeightViewController.h */,
+				EE9629F5154CCD2800BDF907 /* EditWeightViewController.m */,
 				533B28AE11E2D53400B3CC07 /* Holiday.h */,
 				533B28AF11E2D53400B3CC07 /* Holiday.m */,
 				533B28B011E2D53400B3CC07 /* HolidayAppDelegate.h */,
 				533B28B111E2D53400B3CC07 /* HolidayAppDelegate.m */,
 				533B28B411E2D53400B3CC07 /* HolidaysDetailViewController.h */,
 				533B28B511E2D53400B3CC07 /* HolidaysDetailViewController.m */,
-				EEF404AF154551770025E424 /* constant.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -325,6 +330,7 @@
 				EE760AEF1544FA1C00894ACA /* WeightRecord.m in Sources */,
 				EE760B091545032B00894ACA /* WeightRecords.m in Sources */,
 				EE15439715451F9A006E2AFF /* CalendarTableViewDataSource.m in Sources */,
+				EE9629F7154CCD2800BDF907 /* EditWeightViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

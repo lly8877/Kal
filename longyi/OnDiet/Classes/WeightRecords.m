@@ -11,7 +11,7 @@
 
 + (NSMutableArray*) weightRecordFromDate:(NSDate*)in_fromDate ToDate:(NSDate*)in_toDate;
 {
-    NSLog(@"Fetching weight records from the database between %@ and %@...", in_fromDate, in_toDate);
+    NSLog(@"%s Fetching weight records from the database between %@ and %@...", __PRETTY_FUNCTION__, in_fromDate, in_toDate);
 	NSMutableArray* weightsRecords = [NSMutableArray array];
     
     sqlite3* db;
@@ -43,5 +43,71 @@
 	}
 	sqlite3_close(db);
     return weightsRecords;
+}
+
++ (BOOL) saveWeight:(CGFloat)in_weight ForDate:(NSDate *)in_date
+{
+    BOOL result = false;
+    NSLog(@"%s saving weight %f for Date %@ to Database", __PRETTY_FUNCTION__, in_weight, in_date);
+    
+
+    NSString* l_weightNumberString = [[NSNumber numberWithFloat:((int)(in_weight * 10))/10.0] stringValue];
+    
+    sqlite3* db;
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentsDirectory = [paths objectAtIndex:0];
+    NSString* writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"weightRecords.sqlite"];
+    
+    NSDateFormatter* l_dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    
+	if(sqlite3_open([writableDBPath UTF8String], &db) == SQLITE_OK) 
+    {
+
+        sqlite3_stmt* l_statement;
+        const char* l_sqlQuery = "delete from weightRecords where dateOfWeight = ?;";
+        if(sqlite3_prepare_v2(db, l_sqlQuery, -1, &l_statement, NULL) == SQLITE_OK) 
+        {
+            [l_dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            
+            sqlite3_bind_text(l_statement, 1, [[l_dateFormatter stringFromDate:in_date] UTF8String], -1, SQLITE_STATIC);
+            
+			if(sqlite3_step(l_statement) != SQLITE_DONE) 
+            {
+                sqlite3_finalize(l_statement);
+                sqlite3_close(db);
+                return false;
+			}
+		}
+        
+        sqlite3_reset(l_statement);
+        l_sqlQuery = "insert or replace into weightRecords (dateOfWeight, weight) values (?, ?)";
+
+		if(sqlite3_prepare_v2(db, l_sqlQuery, -1, &l_statement, NULL) == SQLITE_OK) 
+        {
+            [l_dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            
+            sqlite3_bind_text(l_statement, 1, [[l_dateFormatter stringFromDate:in_date] UTF8String], -1, SQLITE_STATIC);
+            sqlite3_bind_text(l_statement, 2, [l_weightNumberString UTF8String], -1, SQLITE_STATIC);
+            
+			if(sqlite3_step(l_statement) == SQLITE_DONE) 
+            {
+                result = true;
+			}
+		}
+        
+		sqlite3_finalize(l_statement);
+	}
+	sqlite3_close(db);
+    return result;
+}
+
++ (CGFloat) weightRecordForDate:(NSDate *)in_date
+{
+    NSArray* array = [[self class] weightRecordFromDate:(NSDate*)in_date ToDate:[in_date dateByAddingTimeInterval: 3600*24]]; 
+    if(array.count == 0)
+        return 0;
+    WeightRecord* weightRecord = [array objectAtIndex:0];
+    return weightRecord.weightInKg;
+
 }
 @end

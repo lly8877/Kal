@@ -125,6 +125,15 @@ static BOOL IsDateBetweenInclusive(NSDate *date, NSDate *begin, NSDate *end)
     [self.items removeAllObjects];
 }
 
+- (CGFloat)WeightForDate:(NSDate *)in_Date
+{
+    NSArray* array = [self weightRecordsFrom:in_Date to:[in_Date dateByAddingTimeInterval: 3600*24]];
+    if(array.count == 0)
+        return 0;
+    WeightRecord* weightRecord = [array objectAtIndex:0];
+    return weightRecord.weightInKg;
+}
+
 #pragma mark -
 
 - (NSArray *)weightRecordsFrom:(NSDate *)fromDate to:(NSDate *)toDate

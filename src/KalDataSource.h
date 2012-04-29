@@ -78,6 +78,7 @@
 - (void)removeAllItems;
 
 - (NSArray*) colorDatesFrom:(NSDate *)fromDate to:(NSDate *)toDate;
+- (CGFloat)WeightForDate:(NSDate *)in_Date;
 @end
 
 @protocol KalDataSourceCallbacks <NSObject>

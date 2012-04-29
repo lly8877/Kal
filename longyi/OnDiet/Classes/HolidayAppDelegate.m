@@ -5,6 +5,7 @@
 
 #import "HolidayAppDelegate.h"
 #import "CalendarTableViewDataSource.h"
+#import "EditWeightViewController.h"
 #import "Kal.h"
 
 @interface HolidayAppDelegate(privateMethods)
@@ -40,7 +41,8 @@
      * from a local Sqlite database. For this demo, I am going to set it up to just use
      * the Sqlite database.
      */
-    kal.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Today" style:UIBarButtonItemStyleBordered target:self action:@selector(showAndSelectToday)] autorelease];
+    kal.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Today" style:UIBarButtonItemStyleBordered target:self action:@selector(showAndSelectToday)] autorelease];
+    kal.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Weight" style:UIBarButtonItemStyleBordered target:self action:@selector(editToday)] autorelease];
     kal.delegate = self;
     dataSource = [[CalendarTableViewDataSource alloc] init];
     kal.dataSource = dataSource;
@@ -57,6 +59,12 @@
     [kal showAndSelectDate:[NSDate date]];
 }
 
+- (void)editToday
+{
+    EditWeightViewController* editWeightVC = [[[EditWeightViewController alloc] initWithDate:[kal selectedDate]] autorelease];
+    editWeightVC.delegate = kal;
+    [navController presentModalViewController:editWeightVC animated:YES];
+}
 #pragma mark UITableViewDelegate protocol conformance
 
 // Display a details screen for the selected holiday/row.

@@ -122,6 +122,10 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     [self reloadData];
 }
 
+- (CGFloat)DisplayWeight
+{
+    return [dataSource WeightForDate:[self selectedDate]];
+}
 // -----------------------------------------
 #pragma mark KalDataSourceCallbacks protocol
 
@@ -143,6 +147,13 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     [[self calendarView] colorTilesForDates:l_dateColorArray];
     
     [self didSelectDate:self.calendarView.selectedDate];
+}
+
+#pragma mark EditWeightViewControllerDelegate
+
+- (void) dataSaved
+{
+    [self reloadData];
 }
 
 // ---------------------------------------

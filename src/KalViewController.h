@@ -6,6 +6,7 @@
 #import <UIKit/UIKit.h>
 #import "KalView.h"       // for the KalViewDelegate protocol
 #import "KalDataSource.h" // for the KalDataSourceCallbacks protocol
+#import "EditWeightViewController.h"
 
 @class KalLogic, KalDate;
 
@@ -20,7 +21,7 @@
  *  date is selected (just like in Apple's calendar app).
  *
  */
-@interface KalViewController : UIViewController <KalViewDelegate, KalDataSourceCallbacks>
+@interface KalViewController : UIViewController <KalViewDelegate, KalDataSourceCallbacks, EditWeightViewControllerDelegate>
 {
   KalLogic *logic;
   UITableView *tableView;
@@ -38,4 +39,5 @@
 - (void)reloadData;                                 // If you change the KalDataSource after the KalViewController has already been displayed to the user, you must call this method in order for the view to reflect the new data.
 - (void)showAndSelectDate:(NSDate *)date;           // Updates the state of the calendar to display the specified date's month and selects the tile for that date.
 
+- (CGFloat)DisplayWeight;
 @end
