@@ -22,9 +22,7 @@
 		533B284711E2D35A00B3CC07 /* flags in Resources */ = {isa = PBXBuildFile; fileRef = 533B283C11E2D35A00B3CC07 /* flags */; };
 		533B285111E2D3F800B3CC07 /* libKal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 533B285011E2D3F400B3CC07 /* libKal.a */; };
 		533B285311E2D42300B3CC07 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 533B285211E2D42300B3CC07 /* libsqlite3.dylib */; };
-		533B28B811E2D53400B3CC07 /* Holiday.m in Sources */ = {isa = PBXBuildFile; fileRef = 533B28AF11E2D53400B3CC07 /* Holiday.m */; };
 		533B28B911E2D53400B3CC07 /* HolidayAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 533B28B111E2D53400B3CC07 /* HolidayAppDelegate.m */; };
-		533B28BB11E2D53400B3CC07 /* HolidaysDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 533B28B511E2D53400B3CC07 /* HolidaysDetailViewController.m */; };
 		533B290B11E3559600B3CC07 /* Kal.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 533B290A11E3559600B3CC07 /* Kal.bundle */; };
 		EE15439715451F9A006E2AFF /* CalendarTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EE15439615451F9A006E2AFF /* CalendarTableViewDataSource.m */; };
 		EE760AEF1544FA1C00894ACA /* WeightRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE760AEE1544FA1C00894ACA /* WeightRecord.m */; };
@@ -75,12 +73,8 @@
 		533B283C11E2D35A00B3CC07 /* flags */ = {isa = PBXFileReference; lastKnownFileType = folder; path = flags; sourceTree = "<group>"; };
 		533B284B11E2D3F400B3CC07 /* Kal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kal.xcodeproj; path = ../../src/Kal.xcodeproj; sourceTree = SOURCE_ROOT; };
 		533B285211E2D42300B3CC07 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		533B28AE11E2D53400B3CC07 /* Holiday.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Holiday.h; sourceTree = "<group>"; };
-		533B28AF11E2D53400B3CC07 /* Holiday.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Holiday.m; sourceTree = "<group>"; };
 		533B28B011E2D53400B3CC07 /* HolidayAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HolidayAppDelegate.h; sourceTree = "<group>"; };
 		533B28B111E2D53400B3CC07 /* HolidayAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HolidayAppDelegate.m; sourceTree = "<group>"; };
-		533B28B411E2D53400B3CC07 /* HolidaysDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HolidaysDetailViewController.h; sourceTree = "<group>"; };
-		533B28B511E2D53400B3CC07 /* HolidaysDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HolidaysDetailViewController.m; sourceTree = "<group>"; };
 		533B290A11E3559600B3CC07 /* Kal.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Kal.bundle; path = ../../src/Kal.bundle; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* OnDiet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OnDiet-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		EE15439515451F9A006E2AFF /* CalendarTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTableViewDataSource.h; sourceTree = "<group>"; };
@@ -117,12 +111,8 @@
 				EE15439615451F9A006E2AFF /* CalendarTableViewDataSource.m */,
 				EE9629F6154CCD2800BDF907 /* EditWeightViewController.h */,
 				EE9629F5154CCD2800BDF907 /* EditWeightViewController.m */,
-				533B28AE11E2D53400B3CC07 /* Holiday.h */,
-				533B28AF11E2D53400B3CC07 /* Holiday.m */,
 				533B28B011E2D53400B3CC07 /* HolidayAppDelegate.h */,
 				533B28B111E2D53400B3CC07 /* HolidayAppDelegate.m */,
-				533B28B411E2D53400B3CC07 /* HolidaysDetailViewController.h */,
-				533B28B511E2D53400B3CC07 /* HolidaysDetailViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -322,9 +312,7 @@
 				533B283911E2D35200B3CC07 /* SBJsonBase.m in Sources */,
 				533B283A11E2D35200B3CC07 /* SBJsonParser.m in Sources */,
 				533B283B11E2D35200B3CC07 /* SBJsonWriter.m in Sources */,
-				533B28B811E2D53400B3CC07 /* Holiday.m in Sources */,
 				533B28B911E2D53400B3CC07 /* HolidayAppDelegate.m in Sources */,
-				533B28BB11E2D53400B3CC07 /* HolidaysDetailViewController.m in Sources */,
 				EE760AEF1544FA1C00894ACA /* WeightRecord.m in Sources */,
 				EE760B091545032B00894ACA /* WeightRecords.m in Sources */,
 				EE15439715451F9A006E2AFF /* CalendarTableViewDataSource.m in Sources */,
