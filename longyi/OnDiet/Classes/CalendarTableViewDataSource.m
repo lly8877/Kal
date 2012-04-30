@@ -97,23 +97,15 @@ static BOOL IsDateBetweenInclusive(NSDate *date, NSDate *begin, NSDate *end)
 
 - (NSArray* ) colorDatesFrom:(NSDate *)fromDate to:(NSDate *)toDate
 {
-    NSArray* l_weightRecordArray = [self weightRecordsFrom:fromDate to:toDate];
+    NSMutableArray* l_weightRecordArray = [NSMutableArray arrayWithArray:[self weightRecordsFrom:fromDate to:toDate]];
     NSMutableArray* l_realDateArray = [NSMutableArray arrayWithArray:[l_weightRecordArray valueForKeyPath:@"date"]];
     NSMutableArray* l_estWeightRecordArray = [WeightRecords arrayFillEstimateWeightTo:l_weightRecordArray FromDate:fromDate ToDate:toDate];
-    NSMutableArray* l_colorArray = [NSMutableArray array];
+    NSMutableArray* l_colorArray = [WeightRecords absColorArrayForWeightRecords:l_estWeightRecordArray];
     NSMutableArray* l_dateArray = [NSMutableArray array];
     
     for(WeightRecord* l_weightRecord in l_estWeightRecordArray)
     {
-        [l_dateArray addObject:l_weightRecord.date];
-        if (l_weightRecord.weightInKg > 76)
-        {
-            [l_colorArray addObject:COLOR_ORANGE];
-        }
-        else 
-        {
-            [l_colorArray addObject:COLOR_LIGHT_BLUE];
-        }
+        [l_dateArray addObject:l_weightRecord.date]; 
     }
     return [NSArray arrayWithObjects:l_dateArray, l_colorArray, l_realDateArray,nil];
 }

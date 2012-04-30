@@ -318,4 +318,66 @@
     }
     return [NSArray arrayWithArray:array];
 }
+
++ (float) firstDayWeight
+{
+    NSLog(@"%s Fetching first weight record from the database...", __PRETTY_FUNCTION__);
+	WeightRecord* weightsRecord = nil;
+    
+    sqlite3* db;
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentsDirectory = [paths objectAtIndex:0];
+    NSString* writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"weightRecords.sqlite"];
+    
+    NSDateFormatter* l_dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    
+	if(sqlite3_open([writableDBPath UTF8String], &db) == SQLITE_OK) 
+    {
+		const char* l_sqlQuery = "select weight, dateOfWeight, note from weightRecords order by dateOfWeight asc limit 1";
+		sqlite3_stmt* l_statement;
+		if(sqlite3_prepare_v2(db, l_sqlQuery, -1, &l_statement, NULL) == SQLITE_OK) 
+        {
+            [l_dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            
+			while(sqlite3_step(l_statement) == SQLITE_ROW) 
+            {
+				CGFloat l_weight = [[NSString stringWithUTF8String:(char *)sqlite3_column_text(l_statement, 0)] floatValue];
+				NSDate* l_date = [l_dateFormatter dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(l_statement, 1)]];
+                NSString* l_note = [NSString stringWithUTF8String:(char *)sqlite3_column_text(l_statement, 2)];
+                weightsRecord = [WeightRecord weightRecordWithDate:l_date noteString:l_note andWeightInKg:l_weight];
+			}
+		}
+		sqlite3_finalize(l_statement);
+	}
+	sqlite3_close(db);
+    return weightsRecord.weightInKg;
+}
+
+
+// standard red [UIColor colorWithHue:0.005 saturation:0.863 brightness:0.84 alpha:1.000]
+// standart green [UIColor colorWithHue:0.275 saturation:0.968 brightness:0.84 alpha:1.000]
++ (NSMutableArray*) absColorArrayForWeightRecords:(NSMutableArray*)weightRecordArray
+{
+    float threshold = 10;
+    float zeroPointNumber = [[self class] firstDayWeight];
+    NSMutableArray* colorArray = [NSMutableArray array];
+    for (WeightRecord* weightRecord in weightRecordArray)
+    {
+        float difference = (weightRecord.weightInKg - zeroPointNumber);
+        if (difference >= 0)
+        {
+            difference = difference/threshold;
+            difference = difference > 1 ? 1 : difference;
+            [colorArray addObject:[UIColor colorWithHue:0.005 saturation:(0.863 * difference) brightness:0.84 alpha:1.000]];
+        }
+        else
+        {
+            difference = -difference/threshold;
+            difference = difference > 1 ? 1 : difference;
+            [colorArray addObject:[UIColor colorWithHue:0.275 saturation:(0.968 * difference) brightness:0.84 alpha:1.000]];
+        }
+    }
+    return colorArray;
+}
+
 @end

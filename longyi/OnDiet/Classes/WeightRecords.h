@@ -17,5 +17,6 @@
 + (NSMutableArray*) arrayFillEstimateWeightTo:(NSMutableArray*)weightRecords FromDate:(NSDate *)in_fromDate ToDate:(NSDate *)in_toDate;
 + (BOOL) saveWeight:(CGFloat)in_weight noteString:(NSString*)in_note ForDate:(NSDate*)in_date;
 + (NSArray*) findWeightRecordBeforeAndAfterWithDate:(NSDate*)in_date inRecords:(NSMutableArray*)weightRecords;
-
++ (float) firstDayWeight;
++ (NSMutableArray*) absColorArrayForWeightRecords:(NSMutableArray*)array;
 @end
