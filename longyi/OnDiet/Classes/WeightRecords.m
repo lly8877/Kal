@@ -85,7 +85,7 @@
 
 + (WeightRecord*) firstWeightRecordAfterDate:(NSDate *)in_date
 {
-    NSLog(@"%s Fetching last weight record from the database before %@...", __PRETTY_FUNCTION__, in_date);
+    NSLog(@"%s Fetching first weight record from the database after %@...", __PRETTY_FUNCTION__, in_date);
 	WeightRecord* weightsRecord = nil;
     
     sqlite3* db;
@@ -143,9 +143,30 @@
     WeightRecord* weightRecordBefore;
     WeightRecord* weightRecordAfter;
     
-    for (NSDate* currentDate = in_fromDate; currentDate <= in_toDate; currentDate = [NSDate dateWithTimeInterval:24*3600 sinceDate:currentDate]) 
+    for (NSDate* currentDate = in_fromDate; [currentDate compare:in_toDate] != NSOrderedDescending; currentDate = [NSDate dateWithTimeInterval:24*3600 sinceDate:currentDate]) 
     {
-        [WeightRecords WithDate:currentDate findWeightRecordBefore:weightRecordBefore andWeightRecordAfter:weightRecordAfter inRecords:weightRecords];
+        NSArray* array = [WeightRecords findWeightRecordBeforeAndAfterWithDate:currentDate inRecords:weightRecords];
+        NSLog(@"finding date before and after date: %@ result%@",currentDate, array);
+        id before = [array objectAtIndex:0];
+        id after = [array objectAtIndex:1];
+        if (before != [NSNull null])
+        {
+            weightRecordBefore = before;
+        }
+        else 
+        {
+            weightRecordBefore = nil;
+        }
+        
+        if (after != [NSNull null])
+        {
+            weightRecordAfter = after;
+        }
+        else 
+        {
+            weightRecordAfter = nil;
+        }
+        
         if ((weightRecordAfter == weightRecordBefore) && weightRecordAfter)
         {
             //found a existing
@@ -165,7 +186,7 @@
         }
         else if(weightRecordBefore)
         {
-            if (currentDate < [[KalDate dateFromNSDate:[NSDate date]] NSDate])
+            if ([currentDate compare:[[KalDate dateFromNSDate:[NSDate date]] NSDate]] == NSOrderedAscending)
             {
                 [result addObject:[WeightRecord estimateWeightRecordWithDate:currentDate andWeightInKg:weightRecordBefore.weightInKg]];
             }
@@ -249,31 +270,52 @@
 
 }
 
-+ (void) WithDate:(NSDate*)in_date findWeightRecordBefore:weightRecordBefore andWeightRecordAfter:weightRecordAfter inRecords:weightRecords
++ (NSArray*) findWeightRecordBeforeAndAfterWithDate:(NSDate*)in_date inRecords:(NSMutableArray*)weightRecords
 {
-    weightRecordBefore = nil;
-    weightRecordAfter = nil;
+    NSLog(@"%@",in_date);
+    WeightRecord* weightRecordBefore = nil;
+    WeightRecord* weightRecordAfter = nil;
     
     for (WeightRecord* weightRecord in weightRecords)
     {
-        if (weightRecord.date < in_date)
+        int difference = [weightRecord.date timeIntervalSinceDate:in_date];
+        if (difference < 0)
         {
             weightRecordBefore = weightRecord;
         }
-        else if(weightRecord.date == in_date)
+        else if(difference == 0)
         {
             weightRecordBefore = weightRecord;
             weightRecordAfter = weightRecord;
-            return;
+            break;
         }
         else //(weightRecord.date > in_date)
         {
             if (!weightRecordAfter) 
             {
                 weightRecordAfter = weightRecord;
-                return;
+                break;
             }
         }
     }
+    NSMutableArray* array = [NSMutableArray array];
+    if(weightRecordBefore)
+    {
+        [array addObject:weightRecordBefore];
+    }
+    else 
+    {
+        [array addObject:[NSNull null]];
+    }
+    
+    if(weightRecordAfter)
+    {
+        [array addObject:weightRecordAfter];
+    }
+    else 
+    {
+        [array addObject:[NSNull null]];
+    }
+    return [NSArray arrayWithArray:array];
 }
 @end

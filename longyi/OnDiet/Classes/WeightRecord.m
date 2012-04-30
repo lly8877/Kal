@@ -25,6 +25,11 @@
     return estimateWeightRecord;
 }
 
+- (NSString*) description
+{
+    return [NSString stringWithFormat:@"WeightRecord date:%@, weight:%f, noteString:%@, IsEstimate:%i", self.date, self.weightInKg, self.noteString, self.estimateWeight];
+}
+
 - (id)initWithDate:(NSDate*)in_date noteString:(NSString*)in_note andWeightInKg:(CGFloat)in_weightInKg
 {
     if ((self = [super init])) {

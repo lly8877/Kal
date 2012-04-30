@@ -16,6 +16,6 @@
 + (WeightRecord*) firstWeightRecordAfterDate:(NSDate *)in_date;
 + (NSMutableArray*) arrayFillEstimateWeightTo:(NSMutableArray*)weightRecords FromDate:(NSDate *)in_fromDate ToDate:(NSDate *)in_toDate;
 + (BOOL) saveWeight:(CGFloat)in_weight noteString:(NSString*)in_note ForDate:(NSDate*)in_date;
-+ (void) WithDate:(NSDate*)date findWeightRecordBefore:weightRecordBefore andWeightRecordAfter:weightRecordAfter inRecords:weightRecords;
++ (NSArray*) findWeightRecordBeforeAndAfterWithDate:(NSDate*)in_date inRecords:(NSMutableArray*)weightRecords;
 
 @end

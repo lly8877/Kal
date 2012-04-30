@@ -101,6 +101,8 @@ extern const CGSize kTileSize;
 {
     NSMutableArray* dates = [dateColorArray objectAtIndex:0];
     NSMutableArray* colors = [dateColorArray objectAtIndex:1];
+    NSMutableArray* markedDates = [dateColorArray objectAtIndex:2];
+    
     
     for (KalTileView *tile in self.subviews)
     {
@@ -113,6 +115,8 @@ extern const CGSize kTileSize;
         {
             tile.backgroundColor = [UIColor whiteColor];
         }
+        BOOL marked = [markedDates containsObject:tile.date];
+        tile.marked = marked;
     }
 }
 

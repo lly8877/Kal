@@ -131,19 +131,22 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 
 - (void)loadedDataSource:(id<KalDataSource>)theDataSource;
 {
-    //NSArray *markedDates = [theDataSource markedDatesFrom:logic.fromDate to:logic.toDate];
-    //NSMutableArray *dates = [[markedDates mutableCopy] autorelease];
-    //for (int i=0; i<[dates count]; i++)
-    //  [dates replaceObjectAtIndex:i withObject:[KalDate dateFromNSDate:[dates objectAtIndex:i]]];
-    //
-    //[[self calendarView] markTilesForDates:dates];
-    
     NSArray* l_dateColorArray = [theDataSource colorDatesFrom:logic.fromDate to:logic.toDate];
     NSMutableArray* l_dates = [l_dateColorArray objectAtIndex:0];
+    NSMutableArray* l_markedDates = [l_dateColorArray objectAtIndex:2];
+    
+    // turn NSdate into KalDate
     for (int i=0; i<[l_dates count]; i++)
     {
         [l_dates replaceObjectAtIndex:i withObject:[KalDate dateFromNSDate:[l_dates objectAtIndex:i]]];
     }
+    
+    // turn NSdate into KalDate    
+    for (int i=0; i<[l_markedDates count]; i++)
+    {
+        [l_markedDates replaceObjectAtIndex:i withObject:[KalDate dateFromNSDate:[l_markedDates objectAtIndex:i]]];
+    }
+    
     [[self calendarView] colorTilesForDates:l_dateColorArray];
     
     [self didSelectDate:self.calendarView.selectedDate];

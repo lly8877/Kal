@@ -22,4 +22,6 @@
 
 + (WeightRecord*)weightRecordWithDate:(NSDate*)in_date noteString:(NSString*)in_note andWeightInKg:(CGFloat)in_weightInKg;
 + (WeightRecord*)estimateWeightRecordWithDate:(NSDate*)in_date andWeightInKg:(CGFloat)in_weightInKg;
+
+- (NSString*) description;
 @end
