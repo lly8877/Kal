@@ -23,10 +23,6 @@
 @synthesize weightPickerView = m_weightPickerView;
 @synthesize delegate = m_delegate;
 
-@synthesize leftBackground = m_leftBackground;
-@synthesize rightBackground = m_rightBackground;
-@synthesize topBackground = m_topBackground;
-@synthesize bottomBackground = m_bottomBackground;
 
 #pragma mark view life cycle
 #pragma mark -
@@ -59,12 +55,6 @@
     }
     self.toolbar.items = l_toolbarItems;
     
-    // four view to cover the picker
-    self.topBackground = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    self.bottomBackground = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    self.leftBackground = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    self.rightBackground = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    
     self.weightNotesTextView = [[[UITextView alloc] initWithFrame:CGRectZero] autorelease];
     self.weightPickerView = [[[UIPickerView alloc] initWithFrame:CGRectZero] autorelease];
     self.weightPickerView.delegate = self;
@@ -75,12 +65,6 @@
     [self.view addSubview:self.toolbar];
     [self.view addSubview:self.weightPickerView];
     [self.view addSubview:self.weightNotesTextView];
-#if 0
-    [self.view addSubview:self.leftBackground];
-    [self.view addSubview:self.rightBackground];
-    [self.view addSubview:self.topBackground];
-    [self.view addSubview:self.bottomBackground];
-#endif
     
     
 }
@@ -111,38 +95,7 @@
     self.weightPickerView.backgroundColor = COLOR_LIGHT_BLUE;
     self.weightPickerView.showsSelectionIndicator = NO;
     self.weightPickerView.clipsToBounds = YES;
-    
-#if 0
-    self.leftBackground.frame = CGRectMake(
-                                           self.weightPickerView.frame.origin.x, 
-                                           self.weightPickerView.frame.origin.y, 
-                                           leftRightMargin,
-                                           l_pickerViewHeight
-                                           );
-    self.rightBackground.frame = CGRectMake(
-                                            self.weightPickerView.frame.origin.x + l_pickerViewWidth - leftRightMargin, 
-                                            self.weightPickerView.frame.origin.y, 
-                                            leftRightMargin,
-                                            l_pickerViewHeight
-                                            );
-    self.topBackground.frame = CGRectMake(
-                                          self.weightPickerView.frame.origin.x, 
-                                          self.weightPickerView.frame.origin.y, 
-                                          l_pickerViewWidth,
-                                          topbottomMargin
-                                          );
-    self.bottomBackground.frame = CGRectMake(
-                                             self.weightPickerView.frame.origin.x,
-                                             self.weightPickerView.frame.origin.y + l_pickerViewHeight - topbottomMargin, 
-                                             l_pickerViewWidth,
-                                             topbottomMargin
-                                             );
-    self.weightPickerView.backgroundColor = COLOR_LIGHT_BLUE;
-    self.leftBackground.backgroundColor = COLOR_LIGHT_BLUE;
-    self.rightBackground.backgroundColor = COLOR_LIGHT_BLUE;
-    self.topBackground.backgroundColor = COLOR_LIGHT_BLUE;
-    self.bottomBackground.backgroundColor = COLOR_LIGHT_BLUE;
-#endif
+
     
     // textview
     self.weightNotesTextView.frame = CGRectMake(
@@ -195,7 +148,7 @@
     [m_toolbar release];
     [m_weightNotesTextView release];
     [m_weightPickerView release];
-    [m_initDate release];
+    [m_initRecord release];
     [super dealloc];
 }
 

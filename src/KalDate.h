@@ -25,4 +25,7 @@
 - (NSComparisonResult)compare:(KalDate *)otherDate;
 - (BOOL)isToday;
 
+// added by longyi
++ (int)DaysUsingDate:(NSDate*)day1 minusDate:(NSDate*)day2;
+- (NSDate*) firstNSDateInTheMonth;
 @end

@@ -99,4 +99,25 @@ static KalDate *today;
   return [NSString stringWithFormat:@"%u/%u/%u", a.month, a.day, a.year];
 }
 
+
+#pragma mark -
+#pragma mark customized methods 
+
++ (int)DaysUsingDate:(NSDate*)day1 minusDate:(NSDate*)day2
+{
+    NSDate* intDay1 = [[[self class] dateFromNSDate:day1] NSDate];
+    NSDate* intDay2 = [[[self class] dateFromNSDate:day2] NSDate];
+    
+    return [intDay1 timeIntervalSinceDate:intDay2]/3600/24;
+}
+
+- (NSDate*) firstNSDateInTheMonth
+{
+    NSDateComponents *c = [[[NSDateComponents alloc] init] autorelease];
+    c.day = 1;
+    c.month = a.month;
+    c.year = a.year;
+    return [[NSCalendar currentCalendar] dateFromComponents:c];
+}
+
 @end

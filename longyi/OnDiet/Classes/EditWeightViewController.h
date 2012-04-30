@@ -22,13 +22,6 @@ UITextViewDelegate
     UITextView* m_weightNotesTextView;
     UIPickerView* m_weightPickerView;
     WeightRecord* m_initRecord;
-    NSDate* m_initDate;
-    
-    UIView* m_leftBackground;
-    UIView* m_rightBackground;
-    UIView* m_topBackground;
-    UIView* m_bottomBackground;
-    
     
     id<EditWeightViewControllerDelegate> m_delegate;
 }
@@ -38,11 +31,6 @@ UITextViewDelegate
 @property (nonatomic, retain) UITextView* weightNotesTextView;
 @property (nonatomic, retain) UIPickerView* weightPickerView;
 @property (nonatomic, assign) id<EditWeightViewControllerDelegate> delegate;
-
-@property (nonatomic, retain) UIView* leftBackground;
-@property (nonatomic, retain) UIView* rightBackground;
-@property (nonatomic, retain) UIView* topBackground;
-@property (nonatomic, retain) UIView* bottomBackground;
 
 - (id)initWithDate:(NSDate*)in_Date;
 
